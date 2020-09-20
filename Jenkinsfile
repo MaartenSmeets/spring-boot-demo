@@ -12,14 +12,6 @@ pipeline {
         sh 'mvn package'
       }
     }
-    
-    stage('Make Container') {
-      steps {
-      sh "docker build -t maartensmeets/spring-boot-demo:${env.BUILD_ID} ."
-      sh "docker tag maartensmeets/spring-boot-demo:${env.BUILD_ID} maartensmeets/spring-boot-demo:latest"
-      }
-    }
-  }
 
   post {
     always {
@@ -28,9 +20,9 @@ pipeline {
     }
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-        sh "docker push maartensmeets/spring-boot-demo:${env.BUILD_ID}"
-        sh "docker push maartensmeets/spring-boot-demo:latest"
+        steps {
+           mvn compile jib:build -Djib.to.auth.username=${USERNAME} -Djib.to.auth.password=${PASSWORD}
+        }
       }
     }
   }

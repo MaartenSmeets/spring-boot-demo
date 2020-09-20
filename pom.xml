@@ -72,6 +72,10 @@
                     </container>
                     <from>
                         <image>openjdk:11-jdk-slim</image>
+                        <auth>
+                            <username>${env.DOCKER_USERNAME}</username>
+                            <password>${env.DOCKER_PASSWORD}</password>
+                        </auth>
                     </from>
                 </configuration>
             </plugin>

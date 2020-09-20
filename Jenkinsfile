@@ -20,8 +20,8 @@ pipeline {
       junit 'target/**/*.xml'
     }
     success {
-      withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh 'mvn jib:build -Djib.to.auth.username=${USERNAME} -Djib.to.auth.password=${PASSWORD}'
+      withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        sh 'mvn jib:build'
       }
     }
   }

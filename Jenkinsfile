@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn package'
+        mvn package
       }
     }
   }
@@ -21,7 +21,7 @@ pipeline {
     }
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh 'mvn jib:build'
+        mvn jib:build
       }
     }
   }

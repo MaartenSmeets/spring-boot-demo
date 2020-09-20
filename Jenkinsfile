@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        withMaven {
+        withMaven(maven : 'mvn-3.6.3') {
           sh "mvn package"
         }
       }
@@ -19,7 +19,7 @@ pipeline {
   post {
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        sh "mvn jib:build -Djib.to.auth.username=$DOCKER_USERNAME -Djib.to.auth.password=$DOCKER_PASSWORD"
+        sh "mvn compile jib:build -Djib.to.auth.username=${DOCKER_USERNAME} -Djib.to.auth.password=${DOCKER_PASSWORD}"
       }
     }
   }

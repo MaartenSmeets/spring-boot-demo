@@ -68,6 +68,10 @@
                             <tag>${project.version}</tag>
                             <tag>latest</tag>
                         </tags>
+                        <auth>
+                            <username>${DOCKER_USERNAME}</username>
+                            <password>${DOCKER_PASSWORD}</password>
+                        </auth>
                     </to>
                     <container>
                         <ports>

@@ -25,7 +25,6 @@ pipeline {
     always {
       archive 'target/**/*.jar'
       junit 'target/**/*.xml'
-      cucumber '**/*.json'
     }
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

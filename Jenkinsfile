@@ -12,7 +12,8 @@ pipeline {
         sh 'mvn package'
       }
     }
-
+  }
+  
   post {
     always {
       archive 'target/**/*.jar'

@@ -63,7 +63,11 @@
                 <version>2.5.2</version>
                 <configuration>
                     <to>
-                        <image>docker.io/maartensmeets/${project.artifactId}:${project.version}</image>
+                        <image>docker.io/maartensmeets/${project.artifactId}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
                     </to>
                     <container>
                         <ports>

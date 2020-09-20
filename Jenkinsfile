@@ -8,20 +8,16 @@ pipeline {
 
   stages {
     stage('Build') {
-      steps {
-        mvn package
+      withMaven {
+        sh "mvn package"
       }
     }
   }
   
   post {
-    always {
-      archive 'target/**/*.jar'
-      junit 'target/**/*.xml'
-    }
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        mvn jib:build
+        sh "mvn jib:build -Djib.to.auth.username=$DOCKER_USERNAME -Djib.to.auth.password=$DOCKER_PASSWORD"
       }
     }
   }

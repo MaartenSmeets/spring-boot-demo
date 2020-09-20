@@ -22,7 +22,7 @@ pipeline {
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         steps {
-           mvn jib:build -Djib.to.auth.username=${USERNAME} -Djib.to.auth.password=${PASSWORD}
+           sh 'mvn jib:build -Djib.to.auth.username=${USERNAME} -Djib.to.auth.password=${PASSWORD}'
         }
       }
     }

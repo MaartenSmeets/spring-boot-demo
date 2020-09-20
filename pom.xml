@@ -64,6 +64,10 @@
                 <configuration>
                     <to>
                         <image>docker.io/maartensmeets/${project.artifactId}:${project.version}</image>
+                        <auth>
+                            <username>${env.DOCKER_USERNAME}</username>
+                            <password>${env.DOCKER_PASSWORD}</password>
+                        </auth>
                     </to>
                     <container>
                         <ports>
@@ -72,10 +76,6 @@
                     </container>
                     <from>
                         <image>openjdk:11-jdk-slim</image>
-                        <auth>
-                            <username>${env.DOCKER_USERNAME}</username>
-                            <password>${env.DOCKER_PASSWORD}</password>
-                        </auth>
                     </from>
                 </configuration>
             </plugin>

@@ -72,8 +72,8 @@
                             <tag>latest</tag>
                         </tags>
                         <auth>
-                            <username>${DOCKER_USERNAME}</username>
-                            <password>${DOCKER_PASSWORD}</password>
+                            <username>${env.DOCKER_USERNAME}</username>
+                            <password>${env.DOCKER_PASSWORD}</password>
                         </auth>
                     </to>
                     <container>

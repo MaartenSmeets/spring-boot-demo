@@ -23,8 +23,7 @@ pipeline {
     }
     stage('Anchore analyse') {
       steps {
-        def imageLine = 'docker.io/maartensmeets/spring-boot-demo'
-        writeFile file: 'anchore_images', text: imageLine
+        writeFile file: 'anchore_images', text: 'docker.io/maartensmeets/spring-boot-demo'
         anchore name: 'anchore_images'
       }
     }

@@ -21,6 +21,13 @@ pipeline {
         }
       } 
     }
+    stage('Anchore analyse') {
+      steps {
+        def imageLine = 'docker.io/maartensmeets/spring-boot-demo'
+        writeFile file: 'anchore_images', text: imageLine
+        anchore name: 'anchore_images'
+      }
+    }
     stage('Deploy to K8s') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {

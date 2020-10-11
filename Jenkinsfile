@@ -15,9 +15,11 @@ pipeline {
       }
     }
     stage('SonarQube analysis') {
+      steps {
         withSonarQubeEnv(credentialsId: 'sonarqube-secret', installationName: 'My SonarQube Server') {
           sh 'mvn sonar:sonar'
         }
+      }
     }
 
     stage('Create and push container') {

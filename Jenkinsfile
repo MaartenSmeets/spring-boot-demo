@@ -14,6 +14,19 @@ pipeline {
         }
       }
     }
+
+    stage ('OWASP Dependency-Check Vulnerabilities') {
+      steps {
+        dependencyCheck additionalArguments: '''
+          -o "./"
+          -s "./"
+          -f "ALL"
+          --prettyPrint''', odcInstallation: 'dependency-check'
+
+        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+      }
+    }
+
     stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv(credentialsId: 'sonarqube-secret', installationName: 'sonarqube-server') {
@@ -29,12 +42,14 @@ pipeline {
         }
       } 
     }
+
     stage('Anchore analyse') {
       steps {
         writeFile file: 'anchore_images', text: 'docker.io/maartensmeets/spring-boot-demo'
         anchore name: 'anchore_images'
       }
     }
+    
     stage('Deploy to K8s') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {

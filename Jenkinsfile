@@ -49,7 +49,7 @@ pipeline {
         anchore name: 'anchore_images'
       }
     }
-    
+
     stage('Deploy to K8s') {
       steps {
         withKubeConfig([credentialsId: 'kubernetes-config']) {

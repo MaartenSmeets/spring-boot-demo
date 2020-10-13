@@ -52,6 +52,27 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.0.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                    <!-- Generate all report formats -->
+                    <format>ALL</format>
+                    <!-- Don't use Nexus Analyzer -->
+                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <!-- Am I the latest version? -->
+                    <versionCheckEnabled>true</versionCheckEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>

@@ -30,7 +30,9 @@ pipeline {
     stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv(credentialsId: 'sonarqube-secret', installationName: 'sonarqube-server') {
-          sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html'
+          withMaven(maven : 'mvn-3.6.3') {
+            sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html'
+          }
         }
       }
     }
@@ -38,7 +40,9 @@ pipeline {
     stage('Create and push container') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-          sh "mvn jib:build"
+          withMaven(maven : 'mvn-3.6.3') {
+            sh "mvn jib:build"
+          }
         }
       } 
     }
